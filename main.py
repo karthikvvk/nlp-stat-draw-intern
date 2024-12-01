@@ -5,7 +5,7 @@ import pandas as pd
 
 
 
-genai.configure(api_key="AIzaSyDBsjpSUMVG0OYo5fxnM8GlrvJbEzp7MLk")
+genai.configure(api_key="")
 
 # Create the model
 generation_config = {
