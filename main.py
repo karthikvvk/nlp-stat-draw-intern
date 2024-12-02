@@ -1,8 +1,16 @@
+import os
+os.system('pip install -U -q "google-generativeai>=0.8.2" pandas==2.2.2 python-dotenv')
+
 import google.generativeai as genai
 import pandas as pd
 import runpy
+from dotenv import load_dotenv, dotenv_values
 
-genai.configure(api_key="")
+
+load_dotenv()
+KEY=os.getenv('KEY')
+
+genai.configure(api_key=KEY)
 generation_config = {
   "temperature": 1,
   "top_p": 0.95,
