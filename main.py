@@ -96,4 +96,4 @@ fh.close()
 runpy.run_path('plt.py')
 
 
-print(response)
+print(response.text)
