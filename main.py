@@ -44,21 +44,17 @@ model = RobertaForSequenceClassification.from_pretrained("./trained_roberta")
 tokenizer = RobertaTokenizer.from_pretrained("./trained_roberta")
 
 def extract_keywords_and_predict_graph_requirement(query):
-    # Step 1: Tokenize the query using spaCy (preprocess the query)
     doc = nlp(query)
     
-    # Step 2: Extract parts of speech that are most likely to be keywords
     keywords = []
     for token in doc:
-        # Include nouns, proper nouns, and verbs as potential keywords
         if token.pos_ in ['NOUN', 'VERB', 'ADJ']:
             keywords.append(token.text)
     
-    # Step 3: Predict graph requirement using the fine-tuned model
     inputs = tokenizer(query, return_tensors="pt", padding=True, truncation=True, max_length=128)
     outputs = model(**inputs)
     logits = outputs.logits
-    prediction = torch.argmax(logits, dim=1).item()  # 0 -> "not needed", 1 -> "needed"
+    prediction = torch.argmax(logits, dim=1).item()
     
     graph_requirement = "needed" if prediction == 1 else "not needed"
     
@@ -85,7 +81,6 @@ Just return the code.
 Full dataset available at 'csv_path = 'data.csv'
 """
 
-#print(query)
 response = chat_session.send_message(query)
 
 fh = open("plt.py", "w")
